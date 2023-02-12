@@ -23,7 +23,7 @@ const checkAuthentication = async (req, res, next) => {
         console.log(token);
         try {
             console.log("here");
-            let decoded = await jwt.verify(token, 'shhhhh');
+            let decoded =  jwt.verify(token, 'shhhhh');
             req.user = decoded
             console.log(decoded);
             if (decoded) {
