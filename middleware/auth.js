@@ -17,11 +17,15 @@ const signup_middeware = expressValidate([
 
 const checkAuthentication = async (req, res, next) => {
     let logged = false;
+    console.log("here");
     let token = req.headers.authorization?.split(" ")[1] || null
     if (token) {
+        console.log(token);
         try {
+            console.log("here");
             let decoded = await jwt.verify(token, 'shhhhh');
             req.user = decoded
+            console.log(decoded);
             if (decoded) {
                 return next();
             }
@@ -56,7 +60,6 @@ const isApplicant = (req, res, next) => {
         })
     }
 }
-
 
 module.exports = {
     login_middeware,

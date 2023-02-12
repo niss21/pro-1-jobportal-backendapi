@@ -4,12 +4,12 @@ const User = require("../model/User");
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken")
 
-const login = async (req, res, next) => {
+const login = (req, res, next) => {
     try {
-        let user = await User.findOne({ email: req.body.email })
+        let user = User.findOne({ email: req.body.email })
         if (user) {
-            let user_pass_obj = await User.findOne({ email: req.body.email }).select("password")
-            let match_status = await bcrypt.compare(req.body.password, user_pass_obj.password);
+            let user_pass_obj =  User.findOne({ email: req.body.email }).select("password")
+            let match_status =  bcrypt.compare(req.body.password, user_pass_obj.password);
             if (match_status) {
                 let token = jwt.sign(user.toObject(), 'shhhhh');
                 return res.send({

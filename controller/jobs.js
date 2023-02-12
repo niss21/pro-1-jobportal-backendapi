@@ -8,7 +8,7 @@ const postjobs = async (req, res, next) => {
     }
     catch (err) {
         next(err)
-    } 
+    }
 }
 
 const putjob = async (req, res, next) => {
@@ -24,8 +24,13 @@ const putjob = async (req, res, next) => {
 
     console.log(req.params);
     console.log("update");
-    let jobs = await Jobs.findByIdAndUpdate(req.params.id, { ...req.body }, { new: true })
-    res.send(jobs)
+
+    try {
+        let jobs = await Jobs.findByIdAndUpdate(req.params.id, { ...req.body }, { new: true })
+        res.send(jobs)
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 const deletejob = async (req, res, next) => {
